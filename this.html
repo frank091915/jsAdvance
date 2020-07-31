@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 构造函数如果返回引用类型,this指向该返回的对象
+        function MyConstructor (){
+            this.name = 'instance'
+            this.fn1 =function(){console.log(this.name)}
+            return null
+            //typeOf null = >特别对象
+        }
+        var instanceOfMyConstructor = new MyConstructor()
+        instanceOfMyConstructor.fn1()
+        //返回undefined
+
+        // 定时器中函数参数中的this
+        function lalala () { 
+            let name = 'innerFunctionName'
+            console.log('function')
+            setTimeout(()=>{
+                console.log(this.name,'this',this)
+            },1000)
+        }
+        let b = {lalala,name:'b'};
+        b.lalala()
+        // 定时器中传函数声明，函数参数中的this指向window,es6中可以通过传箭头函数来解决this指向的问题（可以不用 将this存在变量中，使用这个对象），原理是 箭头函数在声明时就以绑定this, ！！普通对象没有函数的作用域。
+        // 就算是对象调用，this也不会指向该对象
+        let obj = {
+            name:'obj',
+            fn1:()=>{
+                console.log(this.name)
+            }
+        }
+        obj.fn1()
+    </script>
+</body>
+</html>
